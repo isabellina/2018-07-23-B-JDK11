@@ -9,6 +9,7 @@ public class State {
 	private int area;
 	private int population;
 	private String neighbors;
+	private int sommaPesi;
 
 	public State(String id, String name, String capital, Double lat, Double lng, int area, int population,
 			String neighbors) {
@@ -89,7 +90,7 @@ public class State {
 
 	@Override
 	public String toString() {
-		return name;
+		return name+ " " + sommaPesi;
 	}
 
 	@Override
@@ -116,5 +117,15 @@ public class State {
 			return false;
 		return true;
 	}
+
+	public int getSommaPesi() {
+		return sommaPesi;
+	}
+
+	public void setSommaPesi(int sommaPesi) {
+		this.sommaPesi = sommaPesi;
+	}
+	
+	
 
 }

@@ -5,9 +5,14 @@
 package it.polito.tdp.newufosightings;
 
 import java.net.URL;
+import java.sql.Date;
+import java.time.Year;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import it.polito.tdp.newufosightings.model.Model;
+import it.polito.tdp.newufosightings.model.State;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -48,6 +53,30 @@ public class NewUfoSightingsController {
 
 	@FXML
 	void doCreaGrafo(ActionEvent event) {
+		try {
+			int anno = Integer.parseInt(txtAnno.getText());
+			int intervallo = Integer.parseInt(txtxG.getText());
+			if((anno<1906 || anno>2014) || (intervallo<1 || intervallo>180)) {
+				txtResult.appendText("Something went wrong l'anno deve essere"
+						+ " compreso tra il 1906 e il 2014 e l'intervallo tra 1 e 180") ;
+				
+			}
+			else {
+				this.model.creaGrafo(anno,intervallo);
+				txtResult.appendText("Vertici:" + this.model.nVertici());
+				txtResult.appendText("Archi:" + this.model.nArchi());
+				txtResult.clear();
+				System.out.println(this.model.nArchi());
+				System.out.println(this.model.nVertici());
+				List<State> l = new LinkedList<State>(this.model.getArchiAdiacenti());
+				for(State s: l) {
+					txtResult.appendText(s.toString() + "\n");
+				} 
+			}
+		}
+		catch(NumberFormatException n) {
+			txtResult.appendText("devi inserire un numero");
+		}
 
 	}
 
